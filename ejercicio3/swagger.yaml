@@ -1,0 +1,112 @@
+---
+swagger: "2.0"
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Inventory API
+  contact:
+    email: diegoarturosilva@hotmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /diegosilva91/compra-online/1.0.0
+tags:
+- name: users
+  description: Operations for obtain info about users
+- name: products
+  description: Operations for products
+schemes:
+- https
+paths:
+  /register:
+    get:
+      tags:
+      - users
+      summary: get a token for an user register
+      description: |
+        Adds an item to the system
+      operationId: getUserRegister
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: object
+        "201":
+          description: created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing item already exists
+    post:
+      tags:
+      - users
+      summary: register a new user
+      description: |
+        Register a new user by pass arguments
+      operationId: registerUser
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: registerUser
+        description: Created user object
+        required: true
+        schema:
+          $ref: '#/definitions/Users'
+      responses:
+        "200":
+          description: user added
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Users'
+        "400":
+          description: bad input parameter
+definitions:
+  Users:
+    type: object
+    required:
+    - email
+    - password
+    - username
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      username:
+        type: string
+        example: diegos91
+      email:
+        type: string
+        example: diegos@hotmail.com
+      password:
+        type: string
+        example: "123456"
+      email_verfied_at:
+        format: date-time
+        example: 2016-08-29T09:12:33.001Z
+      created_at:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33.001Z
+      updated_at:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33.001Z
+  Products:
+    properties:
+      id:
+        type: string
+        example: "1"
+      title:
+        type: string
+        example: nutella
